@@ -21,6 +21,7 @@ repositories {
 dependencies {
 	compile group: 'org.apache.poi', name: 'poi', version: '3.9'
 	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
+	compile group: 'org.apache.airavata', name: 'levenshtein-distance-service', version: '0.2-incubating'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'

@@ -2,16 +2,13 @@ package entity;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -21,18 +18,18 @@ public class Paper {
 	
 	private String id;
 	private String title;
-	private String firstAuthor;
-	private String secondAuthor;
+	private int year;
+	private boolean isDuplicated;
 	
 	public Paper() {
 		
 	}
 	
-	public Paper(String id, String name, String firstAuthor, String secondAuthor) {
+	public Paper(String id, String name, int year, boolean isDuplicated) {
 		this.id = id;
 		this.title = name;
-		this.firstAuthor = firstAuthor;
-		this.secondAuthor = secondAuthor;
+		this.year = year;
+		this.isDuplicated = isDuplicated;
 	}
 	
 	public String getId() {
@@ -47,17 +44,20 @@ public class Paper {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getFirstAuthor() {
-		return firstAuthor;
+	public int getYear() {
+		return year;
 	}
-	public void setFirstAuthor(String firstAuthor) {
-		this.firstAuthor = firstAuthor;
+
+	public void setYear(int year) {
+		this.year = year;
 	}
-	public String getSecondAuthor() {
-		return secondAuthor;
+
+	public boolean isDuplicated() {
+		return isDuplicated;
 	}
-	public void setSecondAuthor(String secondAuthor) {
-		this.secondAuthor = secondAuthor;
+
+	public void setDuplicated(Boolean isduplicated) {
+		this.isDuplicated = isduplicated;
 	}
 
 	private Object getCellValue(Cell cell) {
@@ -95,18 +95,18 @@ public class Paper {
 				int columnIndex = nextCell.getColumnIndex();
 
 				switch (columnIndex) {
-					case 1:
+					case 0:
 						newPaper.setId((String) getCellValue(nextCell));
 						break;
-					case 2:
+					case 1:
 						newPaper.setTitle((String) getCellValue(nextCell));
 						break;
-					case 3:
-						newPaper.setFirstAuthor((String) getCellValue(nextCell));
-						break;
-					case 4:
-						newPaper.setSecondAuthor((String) getCellValue(nextCell));
-						break;
+//					case 3:
+//						newPaper.setYear((int) getCellValue(nextCell));
+//						break;
+//					case 4:
+//						newPaper.setDuplicated((Boolean) getCellValue(nextCell));
+//						break;
 					default:
 						break;
 				}
@@ -136,6 +136,8 @@ public class Paper {
 		try (FileOutputStream outputStream = new FileOutputStream(excelPathFile)) {
 			workBook.write(outputStream);
 		}
+		
+		workBook.close();
 	}
 
 	private void writePaper(Paper paper, Row row) {
@@ -146,20 +148,20 @@ public class Paper {
 		cell.setCellValue(paper.getTitle());
 
 		cell = row.createCell(3);
-		cell.setCellValue(paper.getFirstAuthor());
+		cell.setCellValue(paper.getYear());
 
 		cell = row.createCell(4);
-		cell.setCellValue(paper.getSecondAuthor());
+		cell.setCellValue(paper.isDuplicated());
 	}
 
-	private List<Paper> getListPaper() {
-		Paper paper1 = new Paper("PUB_0001", "Software development risk and project performance measurement: Evidence in Korea", "Kwan-SikNa", "James T.Simpson");
-		Paper paper2 = new Paper("PUB_0002", "Software development risk and project performance measurement: Evidence in Korea", "Kwan-SikNa", "James T.Simpson");
-		Paper paper3 = new Paper("PUB_0003", "Effective Software Testing: 50 Ways to Improve Your Software Testing", "Elfriede Dustin", "");
-		Paper paper4 = new Paper("PUB_0004", "[CITA__O] Software testing techniques", "B Beizer", "");
-
-		List<Paper> paperList = Arrays.asList(paper1, paper2, paper3, paper4);
-
-		return paperList;
-	}
+//	private List<Paper> getListPaper() {
+//		Paper paper1 = new Paper("PUB_0001", "Software development risk and project performance measurement: Evidence in Korea", "Kwan-SikNa", "James T.Simpson");
+//		Paper paper2 = new Paper("PUB_0002", "Software development risk and project performance measurement: Evidence in Korea", "Kwan-SikNa", "James T.Simpson");
+//		Paper paper3 = new Paper("PUB_0003", "Effective Software Testing: 50 Ways to Improve Your Software Testing", "Elfriede Dustin", "");
+//		Paper paper4 = new Paper("PUB_0004", "[CITA__O] Software testing techniques", "B Beizer", "");
+//
+//		List<Paper> paperList = Arrays.asList(paper1, paper2, paper3, paper4);
+//
+//		return paperList;
+//	}
 }
