@@ -60,21 +60,21 @@ public class Paper {
 		this.isDuplicated = isduplicated;
 	}
 
-	private Object getCellValue(Cell cell) {
-		
-		switch (cell.getCellTypeEnum()) {
-		case STRING:
-			return cell.getStringCellValue();
-		case BOOLEAN:
-			return cell.getBooleanCellValue();
-		case NUMERIC:
-			return cell.getNumericCellValue();
-		default:
-			break;
-		}
-		
-		return null;
-	}
+//	private Object getCellValue(Cell cell) {
+//		
+//		switch (cell.getCellTypeEnum()) {
+//		case STRING:
+//			return cell.getStringCellValue();
+//		case BOOLEAN:
+//			return cell.getBooleanCellValue();
+//		case NUMERIC:
+//			return cell.getNumericCellValue();
+//		default:
+//			break;
+//		}
+//		
+//		return null;
+//	}
 	
 	public List<Paper> readPapersFromExcelFile(String excelFilePath) throws IOException {
 		
@@ -96,10 +96,10 @@ public class Paper {
 
 				switch (columnIndex) {
 					case 0:
-						newPaper.setId((String) getCellValue(nextCell));
+						newPaper.setId(nextCell.getStringCellValue());
 						break;
 					case 1:
-						newPaper.setTitle((String) getCellValue(nextCell));
+						newPaper.setTitle(nextCell.getStringCellValue());
 						break;
 //					case 3:
 //						newPaper.setYear((int) getCellValue(nextCell));
