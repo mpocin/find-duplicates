@@ -4,6 +4,7 @@ import entity.Paper;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.xmlbeans.impl.common.Levenshtein;
@@ -41,6 +42,7 @@ public class FindDuplicateApp {
 		}
 
 		int count = 0;
+		duplicatedList.sort(Comparator.comparing(Paper::getId));
 		for (int i = 0; i < duplicatedList.size(); i++) {
 			System.out.println(duplicatedList.get(i).getId());
 			count++;
