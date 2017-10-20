@@ -29,11 +29,14 @@ public class FindDuplicateApp {
 					actualTitle = cleanData(actualTitle);
 					nextTitle = cleanData(nextTitle);
 
-					int levenshteinDistance = Levenshtein.distance(actualTitle, nextTitle);
+					if (!actualTitle.equals(null) && !nextTitle.equals(null)) {
 
-					if (levenshteinDistance <= 1) {
-						duplicatedList.add(papersList.get(k));
-						papersList.get(k).setDuplicated(true);
+						int levenshteinDistance = Levenshtein.distance(actualTitle, nextTitle);
+
+						if (levenshteinDistance <= 1) {
+							duplicatedList.add(papersList.get(k));
+							papersList.get(k).setDuplicated(true);
+						}
 					}
 				}
 
